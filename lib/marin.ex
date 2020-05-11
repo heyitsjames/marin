@@ -37,15 +37,19 @@ defmodule Marin do
     Events.sync_all_events(results_with_race_ids)
   end
 
+  def sync_participants_for_new_events() do
+    events = Events.list_events_with_no_participants()
+    Enum.map(events, fn event ->
+      Worker.scrape_participant_data_for_event(event.uuid)
+    end)
+  end
+
   def sync_participants_for_all_events() do
     events = Events.list_events()
 
     Enum.map(events, fn event ->
       Worker.scrape_participant_data_for_event(event.uuid)
     end)
-  end
-
-  def sync_participants_for_new_events() do
   end
 
   def sync_participants_for_event(event_id) do

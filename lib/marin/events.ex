@@ -17,7 +17,7 @@ defmodule Marin.Events do
   def list_events_with_no_participants do
     query =
       from event in Event,
-        join: participants in assoc(event, :participants),
+        left_join: participants in assoc(event, :participants),
         where: is_nil(participants.id)
 
     Repo.all(query)
