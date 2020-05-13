@@ -20,7 +20,7 @@ defmodule Marin.Races.Scraper do
     |> sanitize_full_names()
     |> add_race_distance()
     |> add_race_year()
-    |> add_non_year_names()
+    |> sanitize_race_name()
     |> add_location()
     |> group_by_name()
   end
@@ -79,15 +79,19 @@ defmodule Marin.Races.Scraper do
     end)
   end
 
-  defp add_non_year_names(races) do
+  defp sanitize_race_name(races) do
     Enum.map(races, fn race ->
-      non_year_name =
-        race
-        |> Map.get(:full_name)
-        |> String.split_at(5)
-        |> elem(1)
+      name_without_year =
+        if race.distance == "Virtual" do
+          race.full_name
+        else
+          race
+          |> Map.get(:full_name)
+          |> String.split_at(5)
+          |> elem(1)
+        end
 
-      Map.put(race, :name, non_year_name)
+      Map.put(race, :name, name_without_year)
     end)
   end
 

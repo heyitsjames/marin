@@ -39,6 +39,7 @@ defmodule Marin do
 
   def sync_participants_for_new_events() do
     events = Events.list_events_with_no_participants()
+
     Enum.map(events, fn event ->
       Worker.scrape_participant_data_for_event(event.uuid)
     end)
