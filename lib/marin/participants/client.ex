@@ -4,6 +4,7 @@ defmodule Marin.Participants.Client do
   """
 
   require Logger
+  alias Marin.HttpClient
 
   @event_url_base "https://data.competitor.com/result/subevent"
   @event_results_per_page 100
@@ -48,7 +49,7 @@ defmodule Marin.Participants.Client do
 
     Logger.info("Requesting #{full_url}")
 
-    case Mojito.request(method: :get, url: full_url) do
+    case HttpClient.get(full_url) do
       {:ok, response} ->
         response
         |> Map.get(:body)

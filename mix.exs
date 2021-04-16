@@ -41,7 +41,7 @@ defmodule Marin.MixProject do
       {:jason, "~> 1.0"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:mockery, "~> 2.3.0", runtime: false},
-      {:mojito, "~> 0.6.3"},
+      {:mojito, "~> 0.7.3"},
       {:phoenix, "~> 1.4.14"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
@@ -49,6 +49,7 @@ defmodule Marin.MixProject do
       {:phoenix_pubsub, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
+      {:tesla, "~> 1.3.0"},
       {:verk, "~> 1.0"},
       {:verk_web, "~> 1.5.1"}
     ]
