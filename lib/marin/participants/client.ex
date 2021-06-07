@@ -6,7 +6,7 @@ defmodule Marin.Participants.Client do
   require Logger
   alias Marin.HttpClient
 
-  @event_url_base "https://data.competitor.com/result/subevent"
+  @event_url_base "https://api.competitor.com/public/result/subevent"
   @event_results_per_page 100
 
   def get_participants_for_event!(event_id) do
@@ -49,11 +49,8 @@ defmodule Marin.Participants.Client do
 
     Logger.info("Requesting #{full_url}")
 
-    case HttpClient.get(full_url) do
-      {:ok, response} ->
-        response
-        |> Map.get(:body)
-        |> Jason.decode!()
+    case HttpClient.fetch_data_from_url(full_url) do
+      {:ok, response} -> Map.get(response, :body)
 
       {:error, error} ->
         raise inspect(error)

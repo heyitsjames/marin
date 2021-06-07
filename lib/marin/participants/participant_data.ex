@@ -7,7 +7,6 @@ defmodule Marin.Participants.ParticipantData do
   import Ecto.Changeset
 
   alias Marin.CountryCodes
-  alias Marin.Events.Event
 
   @mapping %{
     "AgeGroup" => :age_group,
